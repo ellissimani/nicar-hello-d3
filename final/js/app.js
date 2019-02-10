@@ -60,7 +60,7 @@ update();
 // });
 
 // Let's alter the function above so that we get numerical values
-d3.csv("lakers_players.csv").then(function(data) {
+d3.csv("./data/lakers_players.csv").then(function(data) {
   data.forEach(function(d) {
     d["pct"] = +d["pct"];
     d["total_pts"] = +d["total_pts"];
@@ -101,13 +101,12 @@ d3.csv("lakers_players.csv").then(function(data) {
 var svgWidth = 500;
 var svgHeight = 500;
 
-
 /* our first SVG! */
 var svg = d3.select('#svg').append('svg')
 		.attr('width',svgWidth)
     .attr('height', svgHeight)
 
-d3.json('lakers_players.json').then(function(playerData) {
+d3.json('./data/lakers_players.json').then(function(playerData) {
   console.log(playerData);
   var pointsScale = d3.scaleLinear()
   	.domain([

@@ -1,0 +1,43 @@
+body {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.bar {
+  width: 30px;
+  margin-right: 20px;
+  background-color: #F4F5F7;
+  border: 1px solid #C5C5C5;
+	margin-bottom: 50px;
+	height: 30px;
+}
+
+.bar2 {
+	width: 30px;
+	margin-right: 20px;
+	background-color: #F4F5F7;
+	border: 1px solid #C5C5C5;
+	height: 30px;
+	background-color: purple;
+}
+
+#chart-2 {
+	margin-top: 25px;
+}
+
+.text {
+	margin-right: 10px;
+	font-size: 20px;
+	margin-top: 0px;
+	width: 210px;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+rect.points-bar {
+	fill:gold;
+	stroke:none;
+}

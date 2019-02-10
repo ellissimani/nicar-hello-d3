@@ -1,0 +1,56 @@
+[
+  {
+    "player_name": "Kobe Bryant",
+    "total_pts": 33643,
+    "pct": 0.187003213,
+    "rank": 1
+  },
+  {
+    "player_name": "Jerry West",
+    "total_pts": 25192,
+    "pct": 0.140028682,
+    "rank": 2
+  },
+  {
+    "player_name": "Kareem Abdul-Jabbar",
+    "total_pts": 24176,
+    "pct": 0.134381288,
+    "rank": 3
+  },
+  {
+    "player_name": "Elgin Baylor",
+    "total_pts": 23149,
+    "pct": 0.128672751,
+    "rank": 4
+  },
+  {
+    "player_name": "Magic Johnson",
+    "total_pts": 17707,
+    "pct": 0.098423621,
+    "rank": 5
+  },
+  {
+    "player_name": "James Worthy",
+    "total_pts": 16320,
+    "pct": 0.09071404,
+    "rank": 6
+  },
+  {
+    "player_name": "Shaquille O'Neal",
+    "total_pts": 13895,
+    "pct": 0.077234778,
+    "rank": 7
+  },
+  {
+    "player_name": "Gail Goodrich",
+    "total_pts": 13044,
+    "pct": 0.07250453,
+    "rank": 8
+  },
+  {
+    "player_name": "Byron Scott",
+    "total_pts": 12780,
+    "pct": 0.071037097,
+    "rank": 9
+  }
+]
