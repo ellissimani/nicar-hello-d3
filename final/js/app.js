@@ -85,11 +85,51 @@ d3.csv("lakers_players.csv").then(function(data) {
       .style("width", function(d){
         return d.pct * 1000 + "px";
       })
+      g.append("p").attr("class", "text")
+      .html(function(d){
+        return d.total_pts + " points"
+      })
   };
   update();
 
 });
 
 ////////////////////////////////
-/// *EXTRA* WORKING WITH SVG ///
+/// *Extra* Charts with SVG  ///
 ////////////////////////////////
+
+var svgWidth = 500;
+var svgHeight = 500;
+
+
+/* our first SVG! */
+var svg = d3.select('#svg').append('svg')
+		.attr('width',svgWidth)
+    .attr('height', svgHeight)
+
+d3.json('lakers_players.json').then(function(playerData) {
+  console.log(playerData);
+  var pointsScale = d3.scaleLinear()
+  	.domain([
+  		0, d3.max(playerData, function(d){ return d.total_pts })
+  	]) // set the domain from zero (lowest possible rank) to the highest rank
+    .range([0, svgWidth]); // this is the _range_ we want to align our data to.
+
+  var rankScale = d3.scaleBand()
+  	.domain(playerData.map(function(d){ return d.rank; }))
+  	.paddingInner(0.1)
+    .paddingOuter(0.5)
+  	.range([0, svgHeight], .1);
+
+  var bars = svg.selectAll('.points-bar')
+  	.data(playerData).enter()
+  	.append('rect').attr('class','points-bar')
+  	.attr('x','0') // our X coordinate for each bar is 0, so the top left of our rectangle stays all the way to the left
+  	.attr('y', function(d){
+  		return rankScale(d.rank) // pass in each player's rank to the rankScale to get its y position
+  	})
+  	.attr('height', rankScale.bandwidth() ) // scaleBand comes with a nice bandWith() method for creating bars
+  	.attr('width', function(d){
+  		return pointsScale(d.total_pts) // pass in each player's points to the pointScale to see how wide the bar should be
+  	});
+});
