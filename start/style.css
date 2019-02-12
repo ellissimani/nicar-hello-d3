@@ -2,6 +2,12 @@ body {
 	font-family:Arial, Helvetica, sans-serif;
 }
 
+.blue-selection {
+	background:skyblue;
+	color:black;
+	font-weight:bold;
+}
+
 .bar {
   width: 30px;
   margin-right: 20px;

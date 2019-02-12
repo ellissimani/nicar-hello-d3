@@ -139,7 +139,7 @@ d3.json('./data/lakers_players.json').then(function(playerData) {
   	.attr('y', function(d){
   		return rankScale(d.rank) // pass in each player's rank to the rankScale to get its y position
   	})
-  	.attr('height', rankScale.bandwidth() ) // scaleBand comes with a nice bandWith() method for creating bars
+  	.attr('height', rankScale.bandwidth()) // scaleBand comes with a nice bandWith() method for creating bars
   	.attr('width', function(d){
   		return pointsScale(d.total_pts) // pass in each player's points to the pointScale to see how wide the bar should be
   	});

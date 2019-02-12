@@ -14,8 +14,6 @@ TL;DR – D3.js uses data to make things on the web, specifically using HTML, CS
 
 Read the docs and more [here](https://d3js.org/)!
 
-**Side note: What is SVG?** SVG stands for Scalable Vector Graphics. SVG defines vector-based graphics for the web using point coordinates in XML code. SVG is what D3 uses to create and manipulate unique shapes and graphics on the web. Read more about SVG [here](https://www.w3schools.com/graphics/svg_intro.asp).
-
 #### Before we get started: The set up
 
 First, take a look at the `start-files` folder. The file structure will be similar to the file structure used in the intro to js class, but instead of just having a `script.js` class, we have a `js` folder. If you open up that folder, you'll see a `main.js` file, which is where we'll write all of our code, and a `d3.v5.min.js` file which is a minimized version of the D3.js library.
@@ -132,7 +130,7 @@ Now, if we want to mimic what we did before and join the data to our DOM element
 	};
 	update();
 
-**Reading in tabular data**
+**Reading in external data**
 
 Since we've got a grip on joining simple arrays to DOM elements in order to make a quick chart on the fly, let's take things a step further and load in an external CSV to the page to use for our bar chart. 
 
@@ -216,3 +214,81 @@ Finally, to spice our chart up a bit, we'll append two text elements to our cont
 	  update();
 	
 	});
+
+### Making a chart using SVG 
+
+**What is SVG?** SVG stands for Scalable Vector Graphics. SVG defines vector-based graphics for the web using point coordinates in XML code. SVG is what D3 uses to create and manipulate unique shapes and graphics on the web. Read more about SVG [here](https://www.w3schools.com/graphics/svg_intro.asp).
+
+One of the nice parts of D3 is being able to visualize stuff with SVG. All of our SVG elements need to be inside an `svg` DOM element, so let's add one of those to the page using our selection skills. There should already be a `#svg` div in your `index.html` file so we'll append it there.
+
+
+	var svg = d3.select('#svg').append('svg');
+
+For our SVG to show up, it needs a height and width attribute attached, so chain those on the end of your selection.
+
+	var svgWidth = 500;
+	var svgHeight = 500;
+	
+	var svg = d3.select('#svg').append('svg')
+		.attr('width',svgWidth)
+	    .attr('height', svgHeight)
+
+
+#### Scales
+
+One of the great utilities D3 provides for manipulating data for visual representation can be found in D3's *scales*. From the documentation:
+
+>Scales are a convenient abstraction for a fundamental task in visualization: mapping a dimension of abstract data to a visual representation.
+
+TL;DR Scales let you align your data to fit your visual space. This is extremely helpful when trying to visualize your data in proportion to the visual space you provide.
+
+There are multiple kinds of D3 scales to work with, but we'll first look at *linear* scales. Let's practice reading in another dataset using the methodology we learned earlier, and set up a scale to help us visualize the data inside the svg we just made. Scales will enable us to show total points for each player within the space provided in the SVG.
+
+	d3.json('./data/lakers_players.json').then(function(playerData) {
+	  console.log(playerData);
+	  
+	  var pointsScale = d3.scaleLinear()
+	  	.domain([
+	  		0, d3.max(playerData, function(d){ return d.total_pts })
+	  	]) 	    
+	  	.range([0, svgWidth]); 
+	  		
+	  var rankScale = d3.scaleBand()
+	  	.domain(playerData.map(function(d){ return d.rank; }))
+	  	.paddingInner(0.1)
+	    .paddingOuter(0.5)
+	  	.range([0, svgHeight], .1);
+	
+	});
+
+You can also set up categorical scales in D3 – these are called *ordinal scales*. From the docs:
+
+>Unlike continuous scales, ordinal scales have a discrete domain and range. For example, an ordinal scale might map a set of named categories to a set of colors, or determine the horizontal positions of columns in a column chart.
+
+For our bar chart of total points by player, we'll need to create a bar for for each player. To set this up, we'll need a `rect` for each pet, and each `rect` needs X and Y coordinates. We already have one of our coordinate positions – from our linear scale we set up above – but now we need to know where each bar needs to be positioned. We can use an ordinal scale to determine where the bars should be positioned. Add the following to your code:
+
+	  var bars = svg.selectAll('.points-bar')
+	  	.data(playerData).enter()
+	  	.append('rect').attr('class','points-bar')
+	  	.attr('x','0')
+	  	.attr('y', function(d){
+	  		return rankScale(d.rank)
+	  	})
+	  	.attr('height', rankScale.bandwidth())
+	 	.attr('width', function(d){
+	  		return pointsScale(d.total_pts) 
+	  	});
+
+
+Further reading on D3 scales:
+- [https://github.com/d3/d3-scale](https://github.com/d3/d3-scale)
+- [https://github.com/d3/d3-array](https://github.com/d3/d3-array)
+
+
+#### Other useful methods we likely won't have time for
+
+Here's some links to other useful methods we won't have time to cover:
+
+- [The margin convention](https://bl.ocks.org/mbostock/3019563)
+- [D3 axis](https://github.com/d3/d3-axis)
+- [D3 transitions](https://github.com/d3/d3-transition)
