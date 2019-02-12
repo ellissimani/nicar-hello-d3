@@ -5,6 +5,22 @@ console.log(d3);
 /// SELECTIONS ///
 //////////////////
 
+/* you can select things individually */
+
+var p1 = d3.select("#p1");
+p1.style("font-size","22px").style("padding","20px").attr("class","blue-selection");
+
+/* select all of the divs with class "selections" and change the font color*/
+var allP = d3.selectAll(".selections");
+allP.style("color","white").style("background","navy");
+
+p1.style("font-size","22px").style("padding","20px").attr("class","blue-selection");
+
+/* add an inner paragraph with append */
+allP.append("p")
+		.attr("class","inner-paragraph")
+		.text("Our new paragraph");
+
 // Let's select the first child of #chart
 var firstBar = d3.select("#chart").select(".bar");
 
@@ -68,10 +84,6 @@ d3.csv("./data/lakers_players.csv").then(function(data) {
   console.log(data);
   var allBars3 = d3.select("#chart-2")
     .selectAll(".bar2").data(data);
-
-  allBars3.style("width", function(d){
-    return d.pct * 1000 + "px"; // multiplying the data value by 1000 for even more dramatic effect
-  });
 
   function update() {
     // we'll append a container to each of the bars and set it equal to a variable
