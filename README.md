@@ -124,8 +124,6 @@ Now, if we want to mimic what we did before and join the data to our DOM element
 	  .selectAll(".bar").data(dataset2);
 	
 	function update() {
-	  // Enter selection: Create new DOM elements for added
-	  // data items, resize and position them.
 	  allBars2.enter()
 	    .append("div").attr("class", "bar")
 	    .style("width", function(d){
@@ -201,9 +199,7 @@ Finally, to spice our chart up a bit, we'll append two text elements to our cont
 	    .selectAll(".bar2").data(data);
 	
 	  function update() {
-	    // we'll append a container to each of the bars and set it equal to a variable
 	    var g = allBars3.enter().append("div").attr("class", "container");
-	      // Now we can append children to the parent element (g)
 	      g.append("p").attr("class", "text")
 	      .html(function(d){
 	        return d.player_name;
